@@ -2,6 +2,7 @@
 local rails_alternative_targets = {
 	{ context = "model",      target = "/app/models/%1.rb",                   transformer = "singularize" },
 	{ context = "controller", target = "/app/controllers/**/%1_controller.rb" },
+	{ context = "controller", target = "/app/controllers/%1_controller.rb" },
 	{ context = "view",       target = "/app/views/%1/*.html*" },
 	{ context = "view",       target = "/app/views/%1/*.html*",               transformer = "singularize" },
 	{ context = "channel",    target = "/app/channels/**/%1_channel.rb" },
@@ -10,7 +11,9 @@ local rails_alternative_targets = {
 	{ context = "mailer",     target = "/app/mailers/%1_mailer.rb" },
 	{ context = "service",    target = "/app/services/%1_service.rb" },
 	{ context = "worker",     target = "/app/workers/**/%1_worker.rb" },
+	{ context = "job",     		target = "/app/jobs/**/%1_job.rb" },
 	{ context = "factories",  target = "/spec/factories/%1.rb",               transformer = "singularize" },
+	{ context = "fixtures",  	target = "/test/factories/%1.rb",               transformer = "pluralize" },
 }
 
 return {
@@ -112,6 +115,10 @@ return {
 	},
 	{
 		pattern = "/app/workers/(.*)/(.*)_worker.rb",
+		target = rails_alternative_targets,
+	},
+	{
+		pattern = "/app/jobs/(.*)/(.*)_job.rb",
 		target = rails_alternative_targets,
 	},
 }
